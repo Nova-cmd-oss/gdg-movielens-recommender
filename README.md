@@ -73,15 +73,16 @@ Running on local URL: http://127.0.0.1:7860
 
 ---
 
-📸 Screenshots
+## 📸 Screenshots
 
-📍 Add these screenshots here:
+| Home Page                | Example Search: The Dark Knight            |
+|--------------------------|-------------------------------------------|
+| ![Home](screenshots/home.jpg) | ![The Dark Knight](screenshots/darkKnight.jpg) |
 
-Homepage of the Gradio app (before search)
+| Data Insights            |
+|--------------------------|
+| ![Data Insights](screenshots/dataInsights.jpg) | ![insights graph](screenshots/Figure_1.png) |
 
-Example search: "The Dark Knight" → recommendations
-
-Insights output from explore.py
 ---
 
 🧠 How It Works
@@ -92,12 +93,12 @@ We use content-based filtering:
 - Cosine similarity is used to find closest matches.
 - Add ratings filter to show highly-rated movies only.
 
-This is simple, explainable, and beginner-friendly.
 ---
 
 👨‍💻 Author
 
-krishna Agarwal
+## krishna Agarwal
+
 Member applicant for GDG On Campus
 
 
