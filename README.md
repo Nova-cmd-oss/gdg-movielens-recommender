@@ -15,11 +15,17 @@ Users can enter a movie name and get **5-20 similar movie recommendations** inst
 
 ## 🗂 Folder Structure
 ┣ 📂 data # Dataset files (movies.csv, ratings.csv, links.csv, tags.csv)
+
 ┣ 📂 artifacts # (Optional) For storing any model artifacts in the future
+
 ┣ 📜 recommender.py # Core recommendation logic
+
 ┣ 📜 gradio_app.py # Main app file to run UI
+
 ┣ 📜 explore.py # Dataset exploration & insights
+
 ┣ 📜 requirements.txt # Dependencies
+
 ┗ 📜 README.md # Project documentation
 
 
