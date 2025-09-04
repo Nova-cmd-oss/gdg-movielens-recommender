@@ -67,9 +67,13 @@ Dataset source: [MovieLens Small Dataset](https://grouplens.org/datasets/moviele
 
 ▶️ Running the App
 
+## 🚀 Live Demo
+🔗 [Try the Movie Recommender App](https://huggingface.co/spaces/kagar06/movie-recommender)
+
 Run this command to launch the app:
    python gradio_app.py
-Running on local URL: http://127.0.0.1:7860
+
+Like : Running on local URL: http://127.0.0.1:7860
 
 ---
 
@@ -81,7 +85,7 @@ Running on local URL: http://127.0.0.1:7860
 
 | Data Insights            |
 |--------------------------|
-| ![Data Insights](screenshots/dataInsights.jpg) | ![insights graph](screenshots/Figure_1.png) |
+| ![Data Insights](screenshots/dataInsights.jpg) |
 
 ---
 
