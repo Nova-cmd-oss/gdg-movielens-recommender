@@ -1,159 +1,97 @@
-# GDG Movie Recommender (MovieLens Small)
+# 🎬 Movie Recommender System
 
-A clean, beginner-friendly recommender system with a **Gradio/Streamlit UI**.  
-It supports:
-- ✅ Data exploration (basic insights)
-- ✅ **Content-based** recommendations (genres via TF-IDF or Jaccard fallback)
-- ✅ **Item-based collaborative filtering** (simple Pearson correlation)
-- ✅ UI with **Gradio** or **Streamlit**
-- ✅ Optional rating filter
-- ✅ Test runner with 3 sample queries
-- ✅ Graceful fallback to a tiny sample dataset if MovieLens CSVs are not present
-
-> Built to meet the GDG On Campus task requirements with clarity and modularity.
+A simple and interactive **Movie Recommendation System** built using the **MovieLens Small Dataset** and a **Gradio Web UI**.  
+Users can enter a movie name and get **5-20 similar movie recommendations** instantly!
 
 ---
 
-## 1) Setup
+## 🚀 Features
+✅ Clean & simple **Gradio UI**  
+✅ **Content-based recommendation** using genres  
+✅ Movie insights: total movies, total ratings, popular movies  
+✅ Beginner-friendly setup (no complex backend)  
 
-### Option A: Use the tiny fallback data (quick demo)
-This repo already includes small fallback CSVs (`data/movies_fallback.csv`, `data/ratings_fallback.csv`) so everything runs out-of-the-box for demo/testing.
+---
 
-### Option B: Use the real MovieLens Small dataset (recommended for submission)
-1. Download **MovieLens Latest Small** from GroupLens (ml-latest-small.zip).
-2. Extract and copy the following files into `data/`:
-   - `movies.csv`
-   - `ratings.csv`
-3. (Optional) set an env var if your data lives elsewhere:
+## 🗂 Folder Structure
+┣ 📂 data # Dataset files (movies.csv, ratings.csv, links.csv, tags.csv)
+┣ 📂 artifacts # (Optional) For storing any model artifacts in the future
+┣ 📜 recommender.py # Core recommendation logic
+┣ 📜 gradio_app.py # Main app file to run UI
+┣ 📜 explore.py # Dataset exploration & insights
+┣ 📜 requirements.txt # Dependencies
+┗ 📜 README.md # Project documentation
+
+
+---
+
+## 📊 Dataset
+We use the **MovieLens Small Dataset**:  
+- ~9,700 movies  
+- ~100,000 ratings from ~600 users  
+
+Dataset source: [MovieLens Small Dataset](https://grouplens.org/datasets/movielens/latest/)  
+
+---
+
+## 🔍 Quick Insights (from `explore.py`)
+| Metric                  | Value    |
+|------------------------|---------|
+| Total Movies           | 9,742   |
+| Total Ratings          | 100,836 |
+| Top Movie (by ratings) | *Forrest Gump (1994)* - 329 ratings |
+
+---
+
+## 🛠️ Installation
+
+1. **Clone the repository**
    ```bash
-   export MOVIELENS_DATA_DIR=/path/to/movielens/data
-   ```
+   git clone https://github.com/Nova-cmd-oss/gdg-movielens-recommender.git
+   
+   cd movie-recommender
 
-> Both **Gradio** and **Streamlit** apps auto-detect the real CSVs if present, and otherwise fallback to the sample.
+2. Create virtual environment (optional but recommended)
+   python -m venv venv
+   source venv/bin/activate      # Mac/Linux
+   venv\Scripts\activate         # Windows
 
-### Install dependencies
-Create a venv (optional) and then:
-```bash
-pip install -r requirements.txt
-```
+3. Install dependencies
+   pip install -r requirements.txt
 
----
+▶️ Running the App
 
-## 2) Run the UI
-
-### Gradio
-```bash
-python gradio_app.py
-```
-Open the printed local URL in your browser. Type/select a movie, choose a method, and click **Recommend**.
-
-### Streamlit
-```bash
-streamlit run streamlit_app.py
-```
+Run this command to launch the app:
+   python gradio_app.py
+Running on local URL: http://127.0.0.1:7860
 
 ---
 
-## 3) Data Exploration (Must-have)
-Basic stats are displayed in the UI. You can also run:
-```bash
-python explore.py
-```
-This prints counts and saves `artifacts/top5_popular.png`.
+📸 Screenshots
 
+📍 Add these screenshots here:
+
+Homepage of the Gradio app (before search)
+
+Example search: "The Dark Knight" → recommendations
+
+Insights output from explore.py
 ---
 
-## 4) Recommendation Logic (Must-have)
+🧠 How It Works
 
-We provide **two** methods; pick one in the UI (content-based is default).
+We use content-based filtering:
 
-### A) Content-Based (Genres)
-- Parses `genres` text into tokens.
-- Uses **TF-IDF + cosine similarity** (if scikit-learn is installed).  
-  Falls back to **Jaccard similarity** if scikit-learn is not available.
-- Returns the top *k* closest movies by genre similarity.
-- Optional **min avg rating** filter (computed from `ratings.csv`).
+- Movies are recommended based on genre similarity.
+- Cosine similarity is used to find closest matches.
+- Add ratings filter to show highly-rated movies only.
 
-### B) Item-Based Collaborative Filtering (Basic)
-- Builds a **user–item rating matrix**.
-- Mean-centers per user to reduce bias.
-- Computes **Pearson correlation** between movie columns.
-- Recommends the top *k* correlated movies.
-- Optional **min avg rating** filter.
-
+This is simple, explainable, and beginner-friendly.
 ---
 
-## 5) Testing (Must-have)
+👨‍💻 Author
 
-We test 3 inputs as requested:
-- "The Dark Knight"
-- "Toy Story"
-- "Interstellar"
+krishna Agarwal
+Member applicant for GDG On Campus
 
-Run:
-```bash
-python test_runner.py
-```
-This prints the matched title and 5 recommendations for each method.
 
-> For the UI screenshots: run one of the UIs locally with the real MovieLens CSVs, test with the 3 movies above, and capture screenshots of the results.
-
----
-
-## 6) Advanced (Optional)
-
-### A) Movie Posters with TMDB
-Add posters by setting `TMDB_API_KEY` and querying TMDB by title to fetch `poster_path`.  
-(Left as a simple extension point to avoid external calls during review.)
-
-### B) Ratings Filter
-Already available in both UIs as a **Min Avg Rating** slider.
-
----
-
-## 7) Project Structure
-
-```
-gdg-movielens-recommender/
-├── data/
-│   ├── movies.csv              # <-- put real dataset here (optional)
-│   ├── ratings.csv             # <-- put real dataset here (optional)
-│   ├── movies_fallback.csv     # tiny demo dataset (included)
-│   └── ratings_fallback.csv    # tiny demo dataset (included)
-├── recommender.py              # core logic (content-based + item CF)
-├── gradio_app.py               # Gradio UI
-├── streamlit_app.py            # Streamlit UI
-├── explore.py                  # basic insights + chart
-├── test_runner.py              # prints recs for 3 movies
-├── requirements.txt
-└── README.md
-```
-
----
-
-## 8) Design Choices & Justification
-
-- **Start simple, scale later**: content-based on `genres` is interpretable and fast; CF adds collaborative signal without complexity.
-- **Stateless UI**: recomputations are cached internally (lightweight for small datasets).
-- **Reproducibility**: deterministic results given the CSVs; no external API dependency by default.
-- **Clarity**: modular functions and readable code; easy to extend (e.g., posters, hybrid scoring).
-
----
-
-## 9) Screenshots (to submit)
-
-1. UI home page with dataset stats (Gradio or Streamlit).
-2. Recommendations for **The Dark Knight**.
-3. Recommendations for **Toy Story**.
-4. Recommendations for **Interstellar**.
-5. (Optional) UI with **Min Avg Rating** filter applied.
-
----
-
-## 10) Troubleshooting
-
-- **No results?** Try content-based method and reduce Min Avg Rating filter.
-- **Movie not found?** Start typing and pick from the dropdown. The app attempts fuzzy match for text inputs.
-- **Performance issues?** This is small-scale; results should be instant. If you swap in a larger dataset, consider precomputing similarity matrices and saving via `joblib`.
-
-Enjoy building! 🚀
