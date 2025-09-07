@@ -17,8 +17,7 @@ top_movies = ratings.groupby("movieId").size().sort_values(ascending=False).head
 top_movies = top_movies.reset_index(name='rating_count')
 top_movies = top_movies.merge(movies, on='movieId')
 print("\nTop 5 Most Popular Movies:")
-print(top_movies[['title', 'rating_count']])
-
+print((top_movies[['title', 'rating_count']]))
 
 #
 
